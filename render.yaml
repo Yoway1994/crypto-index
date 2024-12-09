@@ -24,3 +24,5 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: NEXT_PUBLIC_API_URL
+        value: https://crypto-index-api.onrender.com

@@ -9,7 +9,13 @@ export default function Home() {
   const handlePing = async () => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8888'
-      const response = await fetch(`${apiUrl}/health`)
+      const response = await fetch(`${apiUrl}/health`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      })
       const data = await response.json()
       setPingResult(JSON.stringify(data, null, 2))
     } catch (err: unknown) {
