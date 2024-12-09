@@ -14,7 +14,6 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
       })
       const data = await response.json()
       setPingResult(JSON.stringify(data, null, 2))
