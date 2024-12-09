@@ -39,13 +39,13 @@ func main() {
 
 	// 建立 HTTP 服務器
 	srv := &http.Server{
-		Addr:    ":8080",
+		Addr:    ":8888",
 		Handler: router,
 	}
 
 	// 在 goroutine 中啟動服務器
 	go func() {
-		log.Println("Server starting on :8080")
+		log.Println("Server starting on :8888")
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("listen: %s\n", err)
 		}

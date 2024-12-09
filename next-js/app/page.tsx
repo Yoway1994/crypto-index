@@ -8,12 +8,13 @@ export default function Home() {
 
   const handlePing = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8888'
       const response = await fetch(`${apiUrl}/health`)
       const data = await response.json()
       setPingResult(JSON.stringify(data, null, 2))
-    } catch (error) {
-      setPingResult('Error: Could not connect to server')
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Could not connect to server'
+      setPingResult(`Error: ${errorMessage}`)
     }
   }
 

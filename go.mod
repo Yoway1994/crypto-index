@@ -1,8 +1,11 @@
 module crypto-index
 
-go 1.21
+go 1.23
 
-require github.com/gin-gonic/gin v1.9.1
+require (
+	github.com/gin-contrib/cors v1.4.0
+	github.com/gin-gonic/gin v1.9.1
+)
 
 require (
 	github.com/bytedance/sonic v1.9.1 // indirect
@@ -30,5 +33,3 @@ require (
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-require github.com/gin-contrib/cors v1.4.0

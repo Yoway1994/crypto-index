@@ -10,14 +10,17 @@ services:
       - key: GIN_MODE
         value: release
     healthCheckPath: /health
+    env:
+      - key: GO_VERSION
+        value: 1.23
 
-  - type: static
+  - type: web
     name: crypto-index-frontend
-    runtime: static
+    runtime: node
     region: singapore
+    plan: free
     buildCommand: cd next-js && npm install && npm run build
-    staticPublishPath: ./next-js/out
-    pullRequestPreviewsEnabled: true
+    startCommand: cd next-js && npm run start
     envVars:
       - key: NODE_ENV
         value: production
