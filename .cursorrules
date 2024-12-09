@@ -1,0 +1,10 @@
+- 後端
+  - 使用Clean Architecture架構
+  - 使用Go語言
+  - 使用Gin框架
+  - 使用Gorm ORM
+  - 使用Redis
+  - 使用PostgreSQL
+  - 使用goose
+- 前端
+  - 使用next.js框架
