@@ -1,24 +1,23 @@
 services:
   - type: web
     name: crypto-index-api
-    env: go
-    region: singapore  # 可以選擇 singapore, ohio 或其他地區
+    runtime: go
+    region: singapore
+    plan: free
     buildCommand: go build -o server ./cmd
     startCommand: ./server
     envVars:
       - key: GIN_MODE
         value: release
     healthCheckPath: /health
-    autoDeploy: true
 
-  - type: web
+  - type: static
     name: crypto-index-frontend
-    env: node
-    region: singapore  # 建議與後端使用相同區域
+    runtime: static
+    region: singapore
     buildCommand: cd next-js && npm install && npm run build
-    startCommand: cd next-js && npm run start
+    staticPublishPath: ./next-js/out
+    pullRequestPreviewsEnabled: true
     envVars:
       - key: NODE_ENV
         value: production
-      - key: NEXT_PUBLIC_API_URL
-        value: https://crypto-index-api.onrender.com # 需要替換成實際的後端 URL 
