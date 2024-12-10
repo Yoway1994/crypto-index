@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -9,6 +10,7 @@ import (
 	"syscall"
 	"time"
 
+	"crypto-index/third-party"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -38,6 +40,31 @@ func main() {
 			"message": "pong",
 			"time":    time.Now().Format(time.RFC3339),
 		})
+	})
+
+	// Dith AI 分析路由
+	router.POST("/api/analyze-token", func(c *gin.Context) {
+		var req struct {
+			Address string `json:"address" binding:"required"`
+		}
+
+		if err := c.ShouldBindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "Invalid request body",
+			})
+			return
+		}
+
+		dithClient := thirdparty.NewDithClient()
+		analysis, err := dithClient.AnalyzeToken(req.Address)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": fmt.Sprintf("Failed to analyze token: %v", err),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, analysis)
 	})
 
 	// 建立 HTTP 服務器
